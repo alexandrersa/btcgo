@@ -64,13 +64,22 @@ go build -o btcgo ./cmd/main.go
 ```bash
 git clone git@github.com:lmajowka/btcgo.git && cd btcgo
 ```
- * Build do Dockerfile:
+ * Sobre o projeto:
 ```bash
-docker buildx build --no-cache -t btcgo .
+make up
 ```
- * Executa a imagem contruída no passo anterior:
+ * Para a execução:
 ```bash
-docker run --rm -it --name btcgo btcgo
+make down
+```
+ * Reinicia a aplicação:
+```bash
+make down
+```
+
+ * Atualiza o projeto:
+```bash
+make update_project
 ```
 
 Este container será deletado se a aplicação parar, para executar novamente basta executar o último comando acima.
