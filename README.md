@@ -79,7 +79,7 @@ make down
 
  * Atualiza o projeto:
 ```bash
-make update_project
+make update_version
 ```
 
 Este container será deletado se a aplicação parar, para executar novamente basta executar o último comando acima.
