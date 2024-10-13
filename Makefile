@@ -8,6 +8,7 @@ endif
 
 up:
 	@echo "Start BTCGO Project"
+	make update_version
 	$(DC) -f docker-compose.yml up -d --build
 down:
 	@echo "Stop BTCGO Project"
@@ -20,4 +21,3 @@ restart:
 update_version:
 	@echo "Updating BTCGO Version"
 	git fetch && git pull
-	make restart
