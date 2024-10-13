@@ -92,10 +92,12 @@ RANDON_REGISTRY=10000
 ```bash
 make up
 ```
+
  * Para a execução:
 ```bash
 make down
 ```
+
  * Reinicia a aplicação:
 ```bash
 make down
@@ -104,6 +106,11 @@ make down
  * Atualiza o projeto:
 ```bash
 make update_version
+```
+
+ * Acompanhar em tempo real:
+```bash
+make log
 ```
 
 Este container será deletado se a aplicação parar, para executar novamente basta executar o último comando acima.
