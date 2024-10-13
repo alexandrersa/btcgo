@@ -64,6 +64,30 @@ go build -o btcgo ./cmd/main.go
 ```bash
 git clone git@github.com:lmajowka/btcgo.git && cd btcgo
 ```
+
+Atualize o arquivo .env com as informações:
+```
+Número de CPU a ser utilizada
+CPU=4
+
+Qual carteira deseja buscar
+WALLET=66
+
+Defina o modo de busca. 
+  1 - Desde o início
+  2 - Sequencial (chave do arquivo)
+  3 - Modo aleatório
+MODE=3
+
+Deseja utilizar base de dados para controlar as repetições
+  1 - Sim
+  2 - Não
+DB=1
+
+Numero registos por cada busca aleatória.
+RANDON_REGISTRY=10000
+```
+
  * Sobre o projeto:
 ```bash
 make up
