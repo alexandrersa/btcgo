@@ -16,5 +16,6 @@ func main() {
 
 	utils.ClearConsole()
 	utils.Title(version)
+
 	app.NewApp()
 }

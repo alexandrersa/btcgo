@@ -16,17 +16,39 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/joho/godotenv"
 )
 
 func RequestData() {
-	green := color.New(color.FgGreen).SprintFunc()
-	// Number of CPU cores to use
-	fmt.Printf("\nCPUs detectados: %s", green(runtime.NumCPU()))
-	App.MaxWorkers = readCPUsForUse()
+	// Carregando variáveis do arquivo .env
 
-	// Ask the user for the range number
-	App.RangeNumber = promptRangeNumber()
-	App.Carteira = fmt.Sprintf("%d", App.RangeNumber)
+	env_file := godotenv.Load()
+
+	// Number of CPU cores to use
+	if env_file == nil {
+
+		green := color.New(color.FgGreen).SprintFunc()
+		// Number of CPU cores to use
+		fmt.Printf("\nCPUs detectados: %s", green(runtime.NumCPU()))
+		App.MaxWorkers = readCPUsForUse()
+
+		// Ask the user for the range number
+		App.RangeNumber = promptRangeNumber()
+		App.Carteira = fmt.Sprintf("%d", App.RangeNumber)
+
+	} else {
+
+		numCPU, err := strconv.Atoi(os.Getenv("CPU"))
+		if err != nil {
+			fmt.Println("O valor informado inválido", err)
+		}
+
+		if numCPU <= runtime.NumCPU() {
+			App.MaxWorkers = numCPU
+		} else {
+			fmt.Print("O número informado de processadores excede ao existente no dispositivo.")
+		}
+	}
 
 	// Set Search Wallet address
 	App.Wallets.SetFindWallet(App.RangeNumber)

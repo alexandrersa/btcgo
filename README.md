@@ -65,7 +65,7 @@ go build -o btcgo ./cmd/main.go
 git clone git@github.com:lmajowka/btcgo.git && cd btcgo
 ```
 
-Atualize o arquivo .env com as informações:
+Atualize o arquivo .env com as informações exitentes em .env.example:
 ```
 Número de CPU a ser utilizada
 CPU=4
@@ -110,7 +110,7 @@ make update_version
 
  * Acompanhar em tempo real:
 ```bash
-make log
+make logs
 ```
 
 Este container será deletado se a aplicação parar, para executar novamente basta executar o último comando acima.
