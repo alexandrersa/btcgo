@@ -12,7 +12,7 @@ import (
 
 func main() {
 
-	version := "v0.6.1"
+	version := "v0.7.0"
 
 	utils.ClearConsole()
 	utils.Title(version)
