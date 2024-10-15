@@ -10,22 +10,21 @@ import (
 	"btcgo/cmd/utils"
 	"bufio"
 	"fmt"
+	"github.com/fatih/color"
+	"github.com/joho/godotenv"
 	"os"
 	"runtime"
 	"strconv"
 	"strings"
-
-	"github.com/fatih/color"
-	"github.com/joho/godotenv"
 )
 
 func RequestData() {
-	// Carregando variáveis do arquivo .env
 
-	env_file := godotenv.Load()
+	// Carregando variáveis do arquivo .env
+	err := godotenv.Load(".env")
 
 	// Number of CPU cores to use
-	if env_file == nil {
+	if err != nil {
 
 		green := color.New(color.FgGreen).SprintFunc()
 		// Number of CPU cores to use
@@ -36,9 +35,25 @@ func RequestData() {
 		App.RangeNumber = promptRangeNumber()
 		App.Carteira = fmt.Sprintf("%d", App.RangeNumber)
 
-	} else {
+		// Set Search Wallet address
+		App.Wallets.SetFindWallet(App.RangeNumber)
 
+		// Pergunta sobre modos de usar
+		App.Modo = promptMods(3) // quantidade de modos
+
+	} else {
+		// Caso os dados sejam passados por variáveis de ambiente.
 		numCPU, err := strconv.Atoi(os.Getenv("CPU"))
+		if err != nil {
+			fmt.Println("O valor informado inválido", err)
+		}
+
+		wallet, err := strconv.Atoi(os.Getenv("WALLET"))
+		if err != nil {
+			fmt.Println("O valor informado inválido", err)
+		}
+
+		mode, err := strconv.Atoi(os.Getenv("MODE"))
 		if err != nil {
 			fmt.Println("O valor informado inválido", err)
 		}
@@ -48,13 +63,25 @@ func RequestData() {
 		} else {
 			fmt.Print("O número informado de processadores excede ao existente no dispositivo.")
 		}
+		App.Ranges = wallet
+
+		if mode > 3 {
+			fmt.Println("Modo inválido. Escolha entre 1, 2 ou 3.")
+		}
+		promptMods(mode)
+		if mode == 3 {
+			db, err := strconv.Atoi(os.Getenv("DB"))
+			if err != nil {
+				fmt.Println("O valor informado inválido", err)
+			}
+			promptUseDB(db)
+			registry, err := strconv.Atoi(os.Getenv("RANDON_REGISTRY"))
+			if err != nil {
+				fmt.Println("O valor informado inválido", err)
+			}
+			App.Keys.SetRecs(registry)
+		}
 	}
-
-	// Set Search Wallet address
-	App.Wallets.SetFindWallet(App.RangeNumber)
-
-	// Pergunta sobre modos de usar
-	App.Modo = promptMods(3) // quantidade de modos
 
 	if App.Modo == 2 {
 		App.DesdeInicio = false

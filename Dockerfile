@@ -3,7 +3,6 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN go get github.com/joho/godotenv
 RUN CGO_ENABLED=0 GOOS=linux go build -o btcgo ./cmd/main.go
 
 FROM scratch

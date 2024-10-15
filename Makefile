@@ -28,7 +28,3 @@ restart:
 update_version:
 	echo "Updating BTCGO Version"
 	git fetch && git pull
-
-tests:
-	echo "Run GO tests in the project"
-	$(DC) -f docker-compose.yml up -d -
